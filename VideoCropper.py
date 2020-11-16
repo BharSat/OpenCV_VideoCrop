@@ -99,11 +99,3 @@ class VideoCropper:
             if cv2.waitKey(0) == ord('q'):
                 break
         out.release()
-
-
-if __name__ == '__main__':
-    cropper = VideoCropper('../Gun.mp4', '1/2')
-    crop1 = cropper.ask_ROI()
-    cv2.imshow('cropped', crop1)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
