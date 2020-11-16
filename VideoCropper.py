@@ -89,6 +89,17 @@ class VideoCropper:
                 frames.append([frame])
         return np.array(frames, dtype=np.uint8)
 
+    all_frames = list_frames
+
+    def write(self):
+        fourcc = VideoWriter_fourcc(*'XVID')
+        out = VideoWriter('output.avi', fourcc, 20.0, (640, 480))
+        for frame in self.list_frames():
+            out.write(frame)
+            if cv2.waitKey(0) == ord('q'):
+                break
+        out.release()
+
 
 if __name__ == '__main__':
     cropper = VideoCropper('../Gun.mp4', '1/2')
