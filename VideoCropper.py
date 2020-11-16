@@ -14,10 +14,18 @@ class VideoCropper:
         elif type(ROI) is str:
             if ROI == '1/4':
                 ROI = [0, int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)//4), 0, int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH)//4)]
-            if ROI == '1/2':
+            elif ROI == '1/2':
                 ROI = [0, int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)//2), 0, int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH)//2)]
-            if ROI == '1/8':
+            elif ROI == '1/8':
                 ROI = [0, self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)//8, 0, self.capture.get(cv2.CAP_PROP_FRAME_WIDTH)//8]
+            elif ROI == 'LT':
+                ROI = [0, int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)//2), 0, int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH)//2)]
+            elif ROI == 'RT':
+                ROI = [int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)//2), int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)), 0, int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH)//2)]
+            elif ROI == 'LB':
+                ROI = [0, int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)//2), int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH)//2), int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH))]
+            elif ROI == 'RB':
+                ROI = [int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)//2), int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)), int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH)//2), int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH))]
         self.ROI = ROI
         self.points = []
         self.can_cut = False
@@ -83,7 +91,7 @@ class VideoCropper:
 
 
 if __name__ == '__main__':
-    cropper = VideoCropper('Gun.mp4', '1/2')
+    cropper = VideoCropper('../Gun.mp4', '1/2')
     crop1 = cropper.ask_ROI()
     cv2.imshow('cropped', crop1)
     cv2.waitKey(0)
