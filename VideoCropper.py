@@ -9,6 +9,8 @@ class VideoCropper:
         self.file = file
         self.capture = VideoCapture(file)
         self.read_frames = []
+        self.points = []
+        self.can_cut = False
         if not ROI:
             self.ask_ROI()
         elif type(ROI) is str:
@@ -27,8 +29,6 @@ class VideoCropper:
             elif ROI == 'RB':
                 ROI = [int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)//2), int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT)), int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH)//2), int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH))]
         self.ROI = ROI
-        self.points = []
-        self.can_cut = False
 
     def reset(self):
         self.capture.release()
