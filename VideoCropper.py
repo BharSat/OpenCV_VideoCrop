@@ -1,4 +1,4 @@
-from cv2 import *
+import cv2
 import numpy as np
 
 
@@ -7,7 +7,7 @@ class VideoCropper:
 
     def __init__(self, file, ROI=None):
         self.file = file
-        self.capture = VideoCapture(file)
+        self.capture = cv2.VideoCapture(file)
         self.read_frames = []
         self.points = []
         self.can_cut = False
@@ -32,7 +32,7 @@ class VideoCropper:
 
     def reset(self):
         self.capture.release()
-        self.capture = VideoCapture(self.file)
+        self.capture = cv2.VideoCapture(self.file)
         self.read_frames = []
 
     def next_frame(self):
@@ -92,8 +92,8 @@ class VideoCropper:
     all_frames = list_frames
 
     def write(self):
-        fourcc = VideoWriter_fourcc(*'XVID')
-        out = VideoWriter('output.avi', fourcc, 20.0, (640, 480))
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
         for frame in self.list_frames():
             out.write(frame)
             if cv2.waitKey(0) == ord('q'):
